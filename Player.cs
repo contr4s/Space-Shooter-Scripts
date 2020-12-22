@@ -41,7 +41,6 @@ public class Player : MonoBehaviour
         laserShot = GetComponent<AudioSource>();
         playerFire1.SetActive(false);
         playerFire2.SetActive(false);
-        SaveSystem.Initialize("results");
     }
 
     void Update()
@@ -77,7 +76,7 @@ public class Player : MonoBehaviour
             playerFire2.SetActive(true);
             fireAnim2.Play("fire1");
         }
-        playerAnimator.Play("player hurt");
+        playerAnimator.SetTrigger("Start Player hurt");
         StartCoroutine(stopAnimationPlayerHurt());
         HealthBar.AdjustCurrentValue(-1);
     }
@@ -135,7 +134,7 @@ public class Player : MonoBehaviour
             else
             {
                 isWaited = false;
-                playerAnimator.Play("default");
+                playerAnimator.SetTrigger("Stop Player hurt");
                 yield break;
             }
         }

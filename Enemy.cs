@@ -17,13 +17,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private AudioClip explosionSound = null;
 
-    [SerializeField]
-    private GameObject player;
     void Start()
     {
-        player = GameObject.Find("Player");
-        if (player != null)
-            speed = 3 + GameManager.gm.complexity * 1.5f;
+        speed = 3 + GameManager.gm.complexity * 1.5f;
     }
 
     void Update()
@@ -60,12 +56,7 @@ public class Enemy : MonoBehaviour
                 }
                 break;
             case "Player":
-                Player player_Controls = collision.GetComponent<Player>();
-
-                if (player_Controls != null)
-                {
-                    GameManager.gm.lifeSubstraction(1);
-                }
+                GameManager.gm.lifeSubstraction(1);
                 Instantiate(enemyExplosionPrefab, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
                 AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, 1.0f);

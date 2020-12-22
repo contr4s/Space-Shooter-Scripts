@@ -109,20 +109,23 @@ public class GameManager : MonoBehaviour {
 
 	public void lifeSubstraction(int damage)
 	{
-		GameManager.gm.playerHP -= damage;
-		_player.GetComponent<Player>().playerFire1.SetActive(true);
-		_player.GetComponent<Player>().fireAnim.Play("fire1");
-		if (playerHP < 2)
+		if (!_player.GetComponent<Player>().playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("player hurt"))
 		{
-			_player.GetComponent<Player>().playerFire2.SetActive(true);
-			_player.GetComponent<Player>().fireAnim2.Play("fire1");
+			GameManager.gm.playerHP -= damage;
+			_player.GetComponent<Player>().playerFire1.SetActive(true);
+			_player.GetComponent<Player>().fireAnim.Play("fire1");
+			if (playerHP < 2)
+			{
+				_player.GetComponent<Player>().playerFire2.SetActive(true);
+				_player.GetComponent<Player>().fireAnim2.Play("fire1");
+			}
+			if (playerHP > 0)
+			{
+				_player.GetComponent<Player>().playerAnimator.Play("player hurt");
+				StartCoroutine(_player.GetComponent<Player>().stopAnimationPlayerHurt());
+			}
+			HealthBar.AdjustCurrentValue(-damage);
 		}
-		if (playerHP > 1)
-		{
-			_player.GetComponent<Player>().playerAnimator.Play("player hurt");
-			StartCoroutine(_player.GetComponent<Player>().stopAnimationPlayerHurt());
-		}
-		HealthBar.AdjustCurrentValue(-damage);
 	}
 
 	void OnApplicationQuit()

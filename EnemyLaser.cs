@@ -13,11 +13,6 @@ public class EnemyLaser : MonoBehaviour
     [SerializeField]
     private GameObject enemyPrefab = null;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         transform.Translate(Vector3.down * Time.deltaTime * laserSpeed);

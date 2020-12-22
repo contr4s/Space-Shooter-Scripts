@@ -14,12 +14,9 @@ public class Asteroid : MonoBehaviour
 
     private float horizontalMovement;
 
-    public GameObject player;
-
     void Start()
     {
         horizontalMovement = Random.Range(-1f, 1f);
-        player = GameObject.Find("Player");
     }
 
    
@@ -66,12 +63,7 @@ public class Asteroid : MonoBehaviour
                 Destroy(this.gameObject);
                 break;
             case "Player":
-                Player player_Controls = collision.GetComponent<Player>();
-
-                if (player_Controls != null)
-                {
-                    GameManager.gm.lifeSubstraction(1);
-                }
+                GameManager.gm.lifeSubstraction(1);
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
                 AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, 1.0f);
