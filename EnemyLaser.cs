@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_laser_controls : MonoBehaviour
+public class EnemyLaser : MonoBehaviour
 {
     private float laserSpeed;
 
@@ -27,7 +27,7 @@ public class Enemy_laser_controls : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        laserSpeed = enemyPrefab.GetComponent<Enemy_controls>().speed * 2;
+        laserSpeed = enemyPrefab.GetComponent<Enemy>().speed * 2;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,7 +41,7 @@ public class Enemy_laser_controls : MonoBehaviour
         }
         else if (collision.tag == "Player")
         {
-            Player_controls player_Controls = collision.GetComponent<Player_controls>();
+            Player player_Controls = collision.GetComponent<Player>();
 
             if (player_Controls != null)
             {

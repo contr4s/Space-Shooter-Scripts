@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class laser_controls : MonoBehaviour
+public class PlayerLaser : MonoBehaviour
 {
     [SerializeField]
     private int laserSpeed = 10;

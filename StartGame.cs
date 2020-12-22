@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class Return_to_main_menu : MonoBehaviour
+
+public class StartGame : MonoBehaviour
 {
+    void Start()
+    {
+        SaveSystem.Initialize("results");
+    }
     public void ScreenSwitching()
     {
-        SceneManager.LoadScene("Start");
+        SceneManager.LoadScene("space_game");
     }
 }

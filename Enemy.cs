@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_controls : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private GameObject laserPrefab = null;
@@ -60,7 +60,7 @@ public class Enemy_controls : MonoBehaviour
                 }
                 break;
             case "Player":
-                Player_controls player_Controls = collision.GetComponent<Player_controls>();
+                Player player_Controls = collision.GetComponent<Player>();
 
                 if (player_Controls != null)
                 {

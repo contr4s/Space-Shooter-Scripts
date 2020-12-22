@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Asteroid_controls : MonoBehaviour
+public class Asteroid : MonoBehaviour
 {
     [SerializeField]
     private int speed = 5;
@@ -66,7 +66,7 @@ public class Asteroid_controls : MonoBehaviour
                 Destroy(this.gameObject);
                 break;
             case "Player":
-                Player_controls player_Controls = collision.GetComponent<Player_controls>();
+                Player player_Controls = collision.GetComponent<Player>();
 
                 if (player_Controls != null)
                 {

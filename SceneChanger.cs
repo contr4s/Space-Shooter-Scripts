@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class Scene_changer : MonoBehaviour
+public class SceneChanger : MonoBehaviour
 {
     public bool fade;
     public float alphaColor;
@@ -41,7 +41,7 @@ public class Scene_changer : MonoBehaviour
 
         if (player != null)
         {
-            if (player.GetComponent<Player_controls>().playerLives < 1)
+            if (player.GetComponent<Player>().playerLives < 1)
             {
                 SaveSystem.SetInt("Score", (int)player.GetComponent<Score>().score);
                 Instantiate(playerExplosionPrefab, player.transform.position, Quaternion.identity);

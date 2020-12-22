@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Save_score : MonoBehaviour
+public class SaveScore : MonoBehaviour
 {
     public int score;
     public static int record;

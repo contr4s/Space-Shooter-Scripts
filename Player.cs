@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player_controls : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField]
     private GameObject laserPrefab = null;
@@ -83,7 +83,7 @@ public class Player_controls : MonoBehaviour
         }
         playerAnimator.Play("player hurt");
         StartCoroutine(stopAnimationPlayerHurt());
-        Health_bar.AdjustCurrentValue(-1);
+        HealthBar.AdjustCurrentValue(-1);
     }
     private void spaceMovement() 
     {
