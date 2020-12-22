@@ -19,9 +19,7 @@ public class Player : MonoBehaviour
 
     public int playerLives = 5;
 
-    private int playerSpeed = 10;
- 
-    private float joysticSpeed = 0.4f;
+    public static int playerSpeed = 10;
 
     private AudioSource laserShot;
 
@@ -30,9 +28,9 @@ public class Player : MonoBehaviour
 
     private Vector3 mousePos;
 
-    private int turnRight = 2;
-
     private bool isWaited;
+
+    private Rigidbody2D _rigid;
     void Start()
     {
         transform.position = new Vector3(0, -3, 0);
@@ -41,6 +39,8 @@ public class Player : MonoBehaviour
         laserShot = GetComponent<AudioSource>();
         playerFire1.SetActive(false);
         playerFire2.SetActive(false);
+
+        _rigid = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -85,31 +85,19 @@ public class Player : MonoBehaviour
     {
         float horizon_input = Input.GetAxis("Horizontal");
         float vert_input = Input.GetAxis("Vertical");
-        if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("player hurt"))
+
+        Vector3 vel = new Vector3(horizon_input, vert_input);
+        if (vel.magnitude > 1)
         {
-            if (horizon_input < 0 || variableJoystick.Horizontal < 0)
-            {
-                playerAnimator.Play("player turn left");
-                turnRight = 0;
-            }
-            else if (horizon_input > 0 || variableJoystick.Horizontal > 0)
-            {
-                playerAnimator.Play("player turn right");
-                turnRight = 1;
-            }
-            else if (horizon_input == 0 || variableJoystick.Horizontal == 0)
-            {
-                if (turnRight == 1)
-                    playerAnimator.Play("player turn right back");
-                else if (turnRight == 0)
-                    playerAnimator.Play("player turn left back");
-            }
+            // Avoid speed multiplying by 1.414 when moving at a diagonal
+            vel.Normalize();
         }
-        transform.Translate(Vector3.right * Time.deltaTime * playerSpeed * horizon_input);
-        transform.Translate(Vector3.up * Time.deltaTime * playerSpeed * vert_input);
+
+        _rigid.velocity = vel * playerSpeed;
 
         Vector3 direction = Vector3.up * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
-        transform.Translate(direction * joysticSpeed);
+        if (Mathf.Abs(direction.magnitude) > 0.001)
+            _rigid.velocity = direction * playerSpeed;
 
         if (transform.position.y > 4)
             transform.position = new Vector3(transform.position.x, 4, 0);

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 	public Text UIScore;
 	public Text UIHighScore;
 	public GameObject UIGamePaused;
+	public Text UIplayerHP;
 
 	public Vector3 spawnLocation;
 
@@ -82,6 +83,9 @@ public class GameManager : MonoBehaviour {
 		if (UIGamePaused==null)
 			Debug.LogError ("Need to set UIGamePaused on Game Manager.");
 
+		if (UIplayerHP == null)
+			Debug.LogError("Need to set UIplayerHP on Game Manager.");
+
 		// get the UI ready for the game
 		refreshGUI();
 	}
@@ -94,9 +98,9 @@ public class GameManager : MonoBehaviour {
 	// refresh all the GUI elements
 	public void refreshGUI() {
 		// set the text elements of the UI
-		UIScore.text = "Score: "+ ((int)score).ToString();
-		UIHighScore.text = "Highscore: "+ highscore.ToString ();
-		
+		UIScore.text = "Score: " + ((int)score).ToString();
+		UIHighScore.text = "Highscore: " + highscore.ToString ();
+		UIplayerHP.text = "HP: " + playerHP.ToString();
 		//refresh hp
 	}
 
