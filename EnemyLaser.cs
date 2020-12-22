@@ -45,7 +45,7 @@ public class EnemyLaser : MonoBehaviour
 
             if (player_Controls != null)
             {
-                player_Controls.lifeSubstraction();
+                GameManager.gm.lifeSubstraction(1);
             }
             Destroy(this.gameObject);
         }

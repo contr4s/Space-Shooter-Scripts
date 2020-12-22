@@ -11,6 +11,6 @@ public class StartGame : MonoBehaviour
     }
     public void ScreenSwitching()
     {
-        SceneManager.LoadScene("space_game");
+        SceneManager.LoadScene("space game");
     }
 }

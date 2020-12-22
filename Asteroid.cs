@@ -43,7 +43,7 @@ public class Asteroid : MonoBehaviour
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
                 AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, 1.0f);
-                player.GetComponent<Score>().score += 5;
+                GameManager.gm.AddPoints(5);
                 break;
             case "enemy_laser":
                 Destroy(collision.gameObject);
@@ -70,7 +70,7 @@ public class Asteroid : MonoBehaviour
 
                 if (player_Controls != null)
                 {
-                    player_Controls.lifeSubstraction();
+                    GameManager.gm.lifeSubstraction(1);
                 }
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);

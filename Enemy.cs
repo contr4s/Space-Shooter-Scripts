@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.Find("Player");
         if (player != null)
-            speed = 3 + player.GetComponent<Score>().complexity * 1.5f;
+            speed = 3 + GameManager.gm.complexity * 1.5f;
     }
 
     void Update()
@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
                 Instantiate(enemyExplosionPrefab, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
                 AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, 1.0f);
-                player.GetComponent<Score>().score += 15;
+                GameManager.gm.AddPoints(15);
                 break;
             case "Asteroid":
                 if (transform.position.y < 4.5f)
@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
 
                 if (player_Controls != null)
                 {
-                    player_Controls.lifeSubstraction();
+                    GameManager.gm.lifeSubstraction(1);
                 }
                 Instantiate(enemyExplosionPrefab, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);

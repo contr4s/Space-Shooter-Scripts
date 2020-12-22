@@ -6,27 +6,25 @@ using UnityEngine.UI;
 public class SaveScore : MonoBehaviour
 {
     public int score;
-    public static int record;
+    public static int highscore;
     public Text scoreBar;
     public Text recordBar;
 
     void Start()
     {
-        score = SaveSystem.GetInt("Score");
-        record = SaveSystem.GetInt("Record");
-        if (score > record)
-            record = score;
+        score = PlayerPrefManager.GetScore();
+        highscore = PlayerPrefManager.GetHighscore();
+        if (score > highscore)
+        {
+            highscore = score;
+            PlayerPrefManager.SetHighscore(highscore);
+        }
         scoreBar.GetComponent<Text>().text = "Score " + score.ToString();
-        recordBar.GetComponent<Text>().text = "Record " + record.ToString();
+        recordBar.GetComponent<Text>().text = "Record " + highscore.ToString();
     }
 
     void Update()
     {
        
-    }
-    void OnApplicationQuit()
-    {
-        SaveSystem.SetInt("Record", record);
-        SaveSystem.SaveToDisk();
     }
 }

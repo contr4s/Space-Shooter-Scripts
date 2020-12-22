@@ -10,17 +10,12 @@ public class Player : MonoBehaviour
     private float fireRate = 0.3f;
     private float nextFire;
 
-    [SerializeField]
-    private GameObject playerFire1 = null;
-    [SerializeField]
-    private Animator fireAnim = null;
-    [SerializeField]
-    private GameObject playerFire2 = null;
-    [SerializeField]
-    private Animator fireAnim2 = null;
+    public GameObject playerFire1 = null;
+    public Animator fireAnim = null;
+    public GameObject playerFire2 = null;
+    public Animator fireAnim2 = null;
 
-    [SerializeField]
-    private Animator playerAnimator = null;
+    public Animator playerAnimator = null;
 
     public int playerLives = 5;
 
@@ -71,9 +66,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void lifeSubstraction()
+    public void lifeSubstraction(int damage)
     {
-        playerLives--;
+        playerLives -= damage;
+        GameManager.gm.playerHP -= damage;
         playerFire1.SetActive(true);
         fireAnim.Play("fire1");
         if (playerLives < 2)
@@ -85,6 +81,7 @@ public class Player : MonoBehaviour
         StartCoroutine(stopAnimationPlayerHurt());
         HealthBar.AdjustCurrentValue(-1);
     }
+
     private void spaceMovement() 
     {
         float horizon_input = Input.GetAxis("Horizontal");
@@ -126,7 +123,7 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(-8.2f, transform.position.y, 0);
     }
 
-    IEnumerator stopAnimationPlayerHurt()
+    public IEnumerator stopAnimationPlayerHurt()
     {
         while (true)
         {

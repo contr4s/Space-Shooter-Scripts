@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
         {
             Instantiate(enemyPrefab, new Vector3(Random.Range(-7.5f, 7.5f), 5.8f, 0), Quaternion.identity);
             if (player != null)
-                yield return new WaitForSeconds(1 / player.GetComponent<Score>().complexity);
+                yield return new WaitForSeconds(1 / GameManager.gm.complexity);
             else
                 yield break;
         }

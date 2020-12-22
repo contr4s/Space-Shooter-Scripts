@@ -41,9 +41,9 @@ public class SceneChanger : MonoBehaviour
 
         if (player != null)
         {
-            if (player.GetComponent<Player>().playerLives < 1)
+            if (GameManager.gm.playerHP < 1)
             {
-                SaveSystem.SetInt("Score", (int)player.GetComponent<Score>().score);
+                PlayerPrefManager.SetScore((int)GameManager.gm.score);
                 Instantiate(playerExplosionPrefab, player.transform.position, Quaternion.identity);
                 Destroy(player);
                 Change_scene();
