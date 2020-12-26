@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class EnemyLaser : MonoBehaviour
 {
+    static private Transform _ENEMYLASER_ANCHOR;
+    static Transform ENEMYLASER_ANCHOR
+    {
+        get
+        {
+            if (_ENEMYLASER_ANCHOR == null)
+            {
+                GameObject go = new GameObject("EnemyLaserAnchor");
+                _ENEMYLASER_ANCHOR = go.transform;
+            }
+            return _ENEMYLASER_ANCHOR;
+        }
+    }
+
+
     private float laserSpeed;
 
     [SerializeField]
@@ -13,16 +28,21 @@ public class EnemyLaser : MonoBehaviour
     [SerializeField]
     private GameObject enemyPrefab = null;
 
+    void Start()
+    {
+        transform.SetParent(ENEMYLASER_ANCHOR, true);
+    }
+
     void Update()
     {
         transform.Translate(Vector3.down * Time.deltaTime * laserSpeed);
 
-        if (transform.position.y >= 5.6)
+        laserSpeed = enemyPrefab.GetComponent<Enemy>().speed * 2;
+
+        if (transform.position.y <= -5.6)
         {
             Destroy(this.gameObject);
         }
-
-        laserSpeed = enemyPrefab.GetComponent<Enemy>().speed * 2;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

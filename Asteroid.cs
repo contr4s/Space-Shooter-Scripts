@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+    static private Transform _ASTEROID_ANCHOR;
+    static Transform ASTEROID_ANCHOR
+    {
+        get
+        {
+            if (_ASTEROID_ANCHOR == null)
+            {
+                GameObject go = new GameObject("AsteroidAnchor");
+                _ASTEROID_ANCHOR = go.transform;
+            }
+            return _ASTEROID_ANCHOR;
+        }
+    }
+
     [SerializeField]
     private int speed = 5;
 
@@ -17,6 +31,8 @@ public class Asteroid : MonoBehaviour
     void Start()
     {
         horizontalMovement = Random.Range(-1f, 1f);
+
+        transform.SetParent(ASTEROID_ANCHOR, true);
     }
 
    

@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    static private Transform _ENEMY_ANCHOR;
+    static Transform ENEMY_ANCHOR
+    {
+        get
+        {
+            if (_ENEMY_ANCHOR == null)
+            {
+                GameObject go = new GameObject("EnemyAnchor");
+                _ENEMY_ANCHOR = go.transform;
+            }
+            return _ENEMY_ANCHOR;
+        }
+    }
+
     [SerializeField]
     private GameObject laserPrefab = null;
     private float fireRate = 10f;
@@ -20,6 +34,8 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         speed = 3 + GameManager.gm.complexity * 1.5f;
+
+        transform.SetParent(ENEMY_ANCHOR, true);
     }
 
     void Update()
