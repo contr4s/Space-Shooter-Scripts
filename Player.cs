@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
 
     private bool isWaited;
 
+    int turnRight = 2;
+
     private Rigidbody2D _rigid;
     void Start()
     {
@@ -98,6 +100,27 @@ public class Player : MonoBehaviour
         Vector3 direction = Vector3.up * variableJoystick.Vertical + Vector3.right * variableJoystick.Horizontal;
         if (Mathf.Abs(direction.magnitude) > 0.001)
             _rigid.velocity = direction * playerSpeed;
+
+        if (!playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("player hurt"))
+        {
+            if (horizon_input < 0 || variableJoystick.Horizontal < 0)
+            {
+                playerAnimator.Play("player turn left");
+                turnRight = 0;
+            }
+            else if (horizon_input > 0 || variableJoystick.Horizontal > 0)
+            {
+                playerAnimator.Play("player turn right");
+                turnRight = 1;
+            }
+            else if (horizon_input == 0 || variableJoystick.Horizontal == 0)
+            {
+                if (turnRight == 1)
+                    playerAnimator.Play("player turn right back");
+                else if (turnRight == 0)
+                    playerAnimator.Play("player turn left back");
+            }
+        }
 
         if (transform.position.y > 4)
             transform.position = new Vector3(transform.position.x, 4, 0);
